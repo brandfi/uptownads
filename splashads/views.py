@@ -4,8 +4,6 @@ from django.http import HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from splashads.generate import TOTPVerification
 
-from splashads.models import Radcheck
-
 import requests
 import json
 
@@ -40,19 +38,24 @@ def index(request):
 
 
 def check_credentials(request):
-    try:
-        client_mac = request.session['client_mac']
-        radcheck = Radcheck.objects.get(mac_address=client_mac,
-                                        organization='k1-ads')
+    client_mac = request.session['client_mac']
+    ssid = 'uptownsms'
+    headers = {'Content-type': 'application/json'}
+    r = requests.get(
+        'http://radiusapi.brandfi.co.ke/radiusapi/user-detail/' +
+        client_mac + '/' + ssid, headers=headers)
+
+    if r.status_code == 200:
+        user = r.json()
         login_url = request.session['login_url']
         successs_url = 'http://' + request.get_host() + \
             reverse('splashads:success')
-        login_params = {"username": radcheck.username,
-                        "password": radcheck.value,
+        login_params = {"username": user['username'],
+                        "password": user['value'],
                         "success_url": successs_url}
         r = requests.post(login_url, params=login_params)
         return HttpResponseRedirect(r.url)
-    except Radcheck.DoesNotExist:
+    else:
         return HttpResponseRedirect(reverse('splashads:signup'))
 
 
@@ -64,17 +67,28 @@ def signup(request):
         phone_number = request.POST['phone_number']
         client_mac = request.session['client_mac']
         generated_token = totp_verification.generate_token()
-        username = phone_number + client_mac + 'k1-ads'
-        radcheck = Radcheck(username=username,
-                            attribute='Cleartext-Password',
-                            op=':=',
-                            value=generated_token,
-                            phone_number=phone_number,
-                            mac_address=client_mac,
-                            email=email,
-                            name=name,
-                            organization='k1-ads')
-        radcheck.save()
+
+        ssid = 'uptownsms'
+        username = phone_number + client_mac + ssid
+
+        # Create a user
+
+        user = {
+            "username": username,
+            "macAddress": client_mac,
+            "mobileNumber": phone_number,
+            "ssid": ssid,
+            "attribute": "Cleartext-Password",
+            "op": ":=",
+            "value": generated_token
+        }
+
+        headers = {'Content-type': 'application/json'}
+        r = requests.post(
+            'http://radiusapi.brandfi.co.ke/radiusapi/create-user/',
+            json=user,
+            headers=headers)
+
         sms_url = 'http://pay.brandfi.co.ke:8301/sms/send'
         welcome_message = 'Online access code is: ' + generated_token
         sms_params = {
@@ -96,19 +110,32 @@ def verify(request):
     status = ''
     if request.method == 'POST':
         password = request.POST['password']
+        headers = {'Content-type': 'application/json'}
 
-        try:
-            radcheck = Radcheck.objects.get(value=password)
-            login_url = request.session['login_url']
-            successs_url = 'http://' + request.get_host() + \
-                reverse('splashads:success')
-            login_params = {"username": radcheck.username,
-                            "password": radcheck.value,
-                            "success_url": success_url}
-            r = requests.post(login_url, params=login_params)
-            return HttpResponseRedirect(r.url)
-        except Radcheck.DoesNotExist:
+        client_mac = request.session['client_mac']
+        ssid = 'uptownsms'
+        headers = {'Content-type': 'application/json'}
+        r = requests.get(
+            'http://radiusapi.brandfi.co.ke/radiusapi/user-detail/' +
+            client_mac + '/' + ssid, headers=headers)
+
+        print(r.status_code)
+        if r.status_code == 200:
+            user = r.json()
+            if user['value'] == password:
+                login_url = request.session['login_url']
+                successs_url = 'http://' + request.get_host() + \
+                    reverse('splashads:success')
+                login_params = {"username": user['username'],
+                                "password": user['value'],
+                                "success_url": successs_url}
+                r = requests.post(login_url, params=login_params)
+                return HttpResponseRedirect(r.url)
+            else:
+                status = 'error'
+        else:
             status = 'error'
+
     context = {
         'message': status,
     }

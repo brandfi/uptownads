@@ -87,9 +87,9 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'radius',
-        'USER': 'fatjoe',
-        'PASSWORD': 'Darthvader_89',
+        'NAME': 'ads',
+        'USER': 'root',
+        'PASSWORD': 'Passw0rd123',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -144,7 +144,7 @@ ADS_ZONES = {
     'header': {
         'name': ('Header'),
         'ad_size': {
-            'xs': '274x150',
+            'xs': '411x576',
             'sm': '800x90',
             'md': '800x90',
             'lg': '800x90'

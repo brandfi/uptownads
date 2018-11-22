@@ -77,6 +77,8 @@ def signup(request):
             "username": username,
             "macAddress": client_mac,
             "mobileNumber": phone_number,
+            "name": name,
+            "email": email,
             "ssid": ssid,
             "attribute": "Cleartext-Password",
             "op": ":=",

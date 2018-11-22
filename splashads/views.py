@@ -104,7 +104,14 @@ def signup(request):
             json=sms_params,
             headers=headers)
         return HttpResponseRedirect(reverse('splashads:verify'))
-    return render(request, 'splashads/signup.html')
+
+    terms_url = 'http://' + request.get_host() + \
+        reverse('splashads:terms')
+
+    context = {
+        'terms_url': terms_url,
+    }
+    return render(request, 'splashads/signup.html', context)
 
 
 @csrf_exempt
@@ -146,3 +153,7 @@ def verify(request):
 
 def success(request):
     return render(request, 'splashads/success.html')
+
+
+def terms(request):
+    return render(request, 'splashads/terms.html')

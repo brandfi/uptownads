@@ -1,0 +1,37 @@
+{% extends "saape/base.html" %}
+{% load static %}
+{% load ads_tags %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
+
+{% block title %}Saape Success{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-4"></div>
+    <div id="index_div" class="col-sm-4">
+        <div class="row justify-content-center" style="margin-top: 20px;">
+            <img class="img-responsive" src="{% static 'saape/images/saape_logo.jpeg' %}" alt="logo" style="height: 100px;">
+        </div>
+        <div class="row justify-content-center">
+            {% render_ads_zone 'sidebar' 'Uptown' %}
+        </div>
+        <div class="row justify-content-center" style="margin-top: 15px;">
+            {% render_ads_zone 'sidebar' 'Uptown' %}
+        </div>
+        <div class="row justify-content-center" style="margin-top: 15px;">
+            {% render_ads_zone 'sidebar' 'Uptown' %}
+        </div>
+        <div class="row justify-content-center" style="margin-top: 10px;">
+            <a href="https://www.google.com" class="btn btn-artcaffee">BROWSE</a>
+        </div>
+    </div>
+    <div class="col-sm-4"></div>
+</div>
+{% endblock %}

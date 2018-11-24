@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['uptown.brandfi.co.ke',
 INSTALLED_APPS = [
     'ads.apps.AdsConfig',
     'splashads.apps.SplashadsConfig',
+    'saape.apps.SaapeConfig',
     'corsheaders',
     'django_otp',
     'django_otp.plugins.otp_totp',

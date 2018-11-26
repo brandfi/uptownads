@@ -40,7 +40,7 @@ def index(request):
 
 def check_credentials(request):
     client_mac = request.session['client_mac']
-    ssid = 'uptownsms'
+    ssid = 'saapesms'
     headers = {'Content-type': 'application/json'}
     r = requests.get(
         'http://radiusapi.brandfi.co.ke/radiusapi/user-detail/' +

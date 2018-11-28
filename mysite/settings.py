@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'jo^w72-vcqpxc%$4pviso1le-0mnj3o((-1*n&k2z+5s5a53z8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['uptown.brandfi.co.ke',
                  '142.93.142.132', '127.0.0.1', 'localhost']
@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'ads.apps.AdsConfig',
     'splashads.apps.SplashadsConfig',
     'saape.apps.SaapeConfig',
+    'taylorgray.apps.TaylorgrayConfig',
     'corsheaders',
     'django_otp',
     'django_otp.plugins.otp_totp',
@@ -86,8 +87,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ads',
-        'USER': 'root',
-        'PASSWORD': 'Passw0rd123',
+        'USER': 'fatjoe',
+        'PASSWORD': 'Darthvader_89',
         'HOST': 'localhost',
         'PORT': '3306',
     }

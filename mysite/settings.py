@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'jo^w72-vcqpxc%$4pviso1le-0mnj3o((-1*n&k2z+5s5a53z8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['uptown.brandfi.co.ke',
                  '142.93.142.132', '127.0.0.1', 'localhost']
@@ -87,8 +87,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ads',
-        'USER': 'fatjoe',
-        'PASSWORD': 'Darthvader_89',
+        'USER': 'root',
+        'PASSWORD': 'Passw0rd123',
         'HOST': 'localhost',
         'PORT': '3306',
     }

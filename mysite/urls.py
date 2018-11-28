@@ -31,6 +31,7 @@ urlpatterns = [
     path('splashads/', include('splashads.urls')),
     path('saape/', include('saape.urls')),
     path('taylorgray/', include('taylorgray.urls')),
+    path('kahawa/', include('kahawa.urls')),
     path('admin/', admin.site.urls),
 ]
 

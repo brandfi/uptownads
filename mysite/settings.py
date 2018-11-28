@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'splashads.apps.SplashadsConfig',
     'saape.apps.SaapeConfig',
     'taylorgray.apps.TaylorgrayConfig',
+    'kahawa.apps.KahawaConfig',
     'corsheaders',
     'django_otp',
     'django_otp.plugins.otp_totp',

@@ -3,7 +3,7 @@
 {% load ads_tags %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'saape/css/index.css' %}" />
+<link rel="stylesheet" href="{% static 'splashads/css/index.css' %}" />
 {% endblock %}
 
 {% block scripts %}
@@ -15,7 +15,8 @@
 {% block content %}
 <div class="row">
     <div class="col-sm-4"></div>
-    <div class="col-sm-4" id="page-container" style="background-image: url('{% static 'taylorgray/images/kcb-mpesa-4.jpeg' %}');">
+    {% for image in ad.images.all %}
+    <div class="col-sm-4" id="page-container" style="background-image: url('{{ image.image.url }}');">
         <div class="row justify-content-center" style="margin-top: 20px;">
             <img class="img-responsive" src="{% static 'kahawa/images/kahawa_logo.jpeg' %}" alt="logo" style="height: 100px; border-radius: 12px;">
         </div>
@@ -24,6 +25,7 @@
             <a href="{{ url }}" class="btn btn-artcaffee">CONTINUE</a>
         </div>
     </div>
+    {% endfor %}
     <div class="col-sm-4"></div>
 </div>
 {% endblock %}

@@ -15,17 +15,17 @@
 {% block content %}
 <div class="row">
     <div class="col-sm-4"></div>
-    <div class="col-sm-4" id="page-container" style="background-image: url('{% static 'splashads/images/syte-trendz-3.jpeg' %}');">
-        <div class="row justify-content-center" style="margin-top: 10px;">
+    {% for image in ad.images.all %}
+    <div class="col-sm-4" id="page-container" style="background-image: url('{{ image.image.url }}');">
+        <div class="row justify-content-center" style="margin-top: 20px;">
             <img class="img-responsive" src="{% static 'splashads/images/uptown_logo.png' %}" alt="logo" style="height: 80px; border-radius: 12px;">
         </div>
-        <div class="row" style="min-height: 500px;">
-
-        </div>
+        <div class="row" style="min-height: 480px;"></div>
         <div class="row justify-content-center" style="padding-bottom: 20px;">
             <a href="{{ url }}" class="btn btn-artcaffee">CONTINUE</a>
         </div>
     </div>
+    {% endfor %}
     <div class="col-sm-4"></div>
 </div>
 {% endblock %}

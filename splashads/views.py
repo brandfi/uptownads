@@ -7,6 +7,12 @@ from splashads.generate import TOTPVerification
 import requests
 import json
 
+from django.conf import settings
+from django.utils import timezone
+
+from ads.models import Ad, Impression
+from ads.utils import get_client_ip
+
 totp_verification = TOTPVerification()
 
 
@@ -30,8 +36,23 @@ def index(request):
     url = 'http://' + request.get_host() + \
         reverse('splashads:check-credentials')
 
+    # Retrieve random ad for the zone based on weight
+    ad = Ad.objects.random_ad('header', 'Uptown')
+
+    if ad is not None:
+        if request.session.session_key:
+            impression, created = Impression.objects.get_or_create(
+                ad=ad,
+                session_id=request.session.session_key,
+                defaults={
+                    'impression_date': timezone.now(),
+                    'source_ip': get_client_ip(request),
+                })
+
     context = {
         'url': url,
+        'ad': ad,
+        'zone': settings.ADS_ZONES.get('header', None),
     }
 
     return render(request, 'splashads/index.html', context)

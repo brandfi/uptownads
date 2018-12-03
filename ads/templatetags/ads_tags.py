@@ -12,7 +12,7 @@ register = template.Library()
 
 
 @register.inclusion_tag('ads/tags/render_ads_zone.html', takes_context=True)
-def render_ads_zone(context, zone, venue_title):
+def render_ads_zone(context, zone, venue_title, venue):
     """
     Returns an advertise for a ``zone``.
     Tag usage:
@@ -32,6 +32,7 @@ def render_ads_zone(context, zone, venue_title):
                 defaults={
                     'impression_date': timezone.now(),
                     'source_ip': get_client_ip(request),
+                    'venue': venue,
                 })
     context.update({
         'ad': ad,

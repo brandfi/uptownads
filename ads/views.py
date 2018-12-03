@@ -8,6 +8,9 @@ from django.views.generic.detail import SingleObjectMixin
 from ads.models import Ad, Click
 from ads.utils import get_client_ip
 
+import requests
+import json
+
 
 class AdClickView(SingleObjectMixin, View):
     def get_queryset(self):
@@ -24,3 +27,19 @@ class AdClickView(SingleObjectMixin, View):
                     'source_ip': get_client_ip(request),
                 })
         return HttpResponseRedirect(ad.url)
+
+
+def get_users(request):
+    headers = {'Content-type': 'application/json'}
+    r = requests.get(
+        'http://radiusapi.brandfi.co.ke/radiusapi/users/', headers=headers)
+
+    users = r.json()
+    filtered_users = [user for user in users if user['ssid'] == 'uptownsms'
+                      or user['ssid'] == 'kahawasms'
+                      or user['ssid'] == 'saapesms'
+                      or user['ssid'] == 'taylorgraysms']
+    context = {
+        'filtered_users': filtered_users,
+    }
+    return render(request, 'ads/users.html', context)

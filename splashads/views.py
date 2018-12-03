@@ -47,6 +47,7 @@ def index(request):
                 defaults={
                     'impression_date': timezone.now(),
                     'source_ip': get_client_ip(request),
+                    'venue': 'Uptown',
                 })
 
     context = {

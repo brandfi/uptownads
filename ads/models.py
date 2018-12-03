@@ -166,6 +166,9 @@ class Impression(models.Model):
     session_id = models.CharField(
         verbose_name=_('Source Session ID'),
         max_length=40, null=True, blank=True)
+    venue = models.CharField(
+        verbose_name=_('Venue'),
+        max_length=40, null=True, blank=True)
 
     class Meta:
         verbose_name = _('Ad Impression')
@@ -192,6 +195,9 @@ class Click(models.Model):
         verbose_name=_('Source IP Address'), null=True, blank=True)
     session_id = models.CharField(
         verbose_name=_('Source Session ID'),
+        max_length=40, null=True, blank=True)
+    venue = models.CharField(
+        verbose_name=_('Venue'),
         max_length=40, null=True, blank=True)
 
     class Meta:

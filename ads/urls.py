@@ -6,4 +6,5 @@ app_name = 'ads'
 
 urlpatterns = [
     path('<int:pk>/', views.AdClickView.as_view(), name='ad-click'),
+    path('users/', views.get_users, name='get-users'),
 ]

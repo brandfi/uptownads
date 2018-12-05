@@ -37,6 +37,9 @@ def index(request):
     url = 'http://' + request.get_host() + \
         reverse('kahawa:check-credentials')
 
+    index_url = 'http://' + request.get_host() + \
+        reverse('kahawa:index')
+
     # Retrieve random ad for the zone based on weight
     ad = Ad.objects.random_ad('header', 'Uptown')
 
@@ -49,10 +52,12 @@ def index(request):
                     'impression_date': timezone.now(),
                     'source_ip': get_client_ip(request),
                     'venue': 'Kahawa',
+                    'url': 'Kahawa Landing Page',
                 })
 
     context = {
         'url': url,
+        'index_url': index_url,
         'ad': ad,
         'zone': settings.ADS_ZONES.get('header', None),
     }
@@ -131,8 +136,12 @@ def signup(request):
     terms_url = 'http://' + request.get_host() + \
         reverse('kahawa:terms')
 
+    signup_url = 'http://' + request.get_host() + \
+        reverse('kahawa:signup')
+
     context = {
         'terms_url': terms_url,
+        'signup_url': signup_url,
     }
     return render(request, 'kahawa/signup.html', context)
 
@@ -168,14 +177,26 @@ def verify(request):
         else:
             status = 'error'
 
+    verify_url = 'http://' + request.get_host() + \
+        reverse('kahawa:verify')
+
     context = {
         'message': status,
+        'verify_url': verify_url,
+
     }
     return render(request, 'kahawa/verify.html', context)
 
 
 def success(request):
-    return render(request, 'kahawa/success.html')
+    success_url = 'http://' + request.get_host() + \
+        reverse('kahawa:success')
+
+    context = {
+        'success_url': success_url,
+
+    }
+    return render(request, 'kahawa/success.html', context)
 
 
 def terms(request):

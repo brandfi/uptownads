@@ -169,6 +169,9 @@ class Impression(models.Model):
     venue = models.CharField(
         verbose_name=_('Venue'),
         max_length=40, null=True, blank=True)
+    url = models.CharField(
+        verbose_name=_('Url'),
+        max_length=200, null=True, blank=True)
 
     class Meta:
         verbose_name = _('Ad Impression')

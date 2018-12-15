@@ -5,8 +5,13 @@ from django.views import View
 from django.utils import timezone
 from django.views.generic.detail import SingleObjectMixin
 
-from ads.models import Ad, Click
+from ads.models import Ad, Click, Impression
+from ads.serializers import ImpressionSerializer
 from ads.utils import get_client_ip
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
 
 import requests
 import json
@@ -43,3 +48,13 @@ def get_users(request):
         'filtered_users': filtered_users,
     }
     return render(request, 'ads/users.html', context)
+
+
+@api_view(['GET'])
+def impressions_list(request, title):
+    """
+    List all impressions.
+    """
+    impressions = Impression.objects.filter(ad__title=title)
+    serializer = ImpressionSerializer(impressions, many=True)
+    return Response(serializer.data)

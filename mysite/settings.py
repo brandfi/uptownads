@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'saape.apps.SaapeConfig',
     'taylorgray.apps.TaylorgrayConfig',
     'kahawa.apps.KahawaConfig',
+    'dashboard.apps.DashboardConfig',
+    'rest_framework',
     'corsheaders',
     'django_otp',
     'django_otp.plugins.otp_totp',

@@ -45,7 +45,7 @@
     <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
             <div class="navbar-wrapper">
-                <a class="navbar-brand" href="#pablo">Dashboard</a>
+                <a class="navbar-brand" href="{% url 'dashboard:index' %}">Dashboard</a>
             </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -154,7 +154,7 @@
                                 <i class="material-icons">info_outline</i>
                             </div>
                             <p class="card-category">Top venue by impressions</p>
-                            <h3 class="card-title" style="font-weight: bold;">Uptown</h3>
+                            <h3 class="card-title" style="font-weight: bold;">{{ venue_max }}</h3>
                         </div>
                         <div class="card-footer">
 
@@ -168,7 +168,7 @@
                                 <i class="material-icons">info_outline</i>
                             </div>
                             <p class="card-category">Top venue by clicks</p>
-                            <h3 class="card-title" style="font-weight: bold;"></h3>
+                            <h3 class="card-title" style="font-weight: bold;">{{ click_max }}</h3>
                         </div>
                         <div class="card-footer">
                             <div class="stats">
@@ -185,14 +185,12 @@
                             <div class="ct-chart" id="dailySalesChart"></div>
                         </div>
                         <div class="card-body">
-                            <h4 class="card-title">Daily Impressions</h4>
-                            <p class="card-category">
-                                <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in
-                                today impressions.</p>
+                            <h4 class="card-title">Today's Impressions</h4>
+                            <h3 class="card-title" style="font-weight: bold;"></h3>
                         </div>
                         <div class="card-footer">
                             <div class="stats">
-                                <i class="material-icons">access_time</i> updated 4 minutes ago
+                                <i class="material-icons">access_time</i> updated on {% now "jS F Y H:i" %}
                             </div>
                         </div>
                     </div>
@@ -203,12 +201,12 @@
                             <div class="ct-chart" id="websiteViewsChart"></div>
                         </div>
                         <div class="card-body">
-                            <h4 class="card-title">Daily Clicks</h4>
-                            <p class="card-category">Last Campaign Performance</p>
+                            <h4 class="card-title">Todays Clicks</h4>
+                            <h3 class="card-title" style="font-weight: bold;"></h3>
                         </div>
                         <div class="card-footer">
                             <div class="stats">
-                                <i class="material-icons">access_time</i> campaign sent 2 days ago
+                                <i class="material-icons">access_time</i>updated on {% now "jS F Y H:i" %}
                             </div>
                         </div>
                     </div>

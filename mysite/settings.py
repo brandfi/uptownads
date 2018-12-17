@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'taylorgray.apps.TaylorgrayConfig',
     'kahawa.apps.KahawaConfig',
     'dashboard.apps.DashboardConfig',
+    'adtest.apps.AdtestConfig',
     'rest_framework',
     'corsheaders',
     'django_otp',

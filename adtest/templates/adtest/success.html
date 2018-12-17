@@ -1,0 +1,48 @@
+{% extends "saape/base.html" %}
+{% load static %}
+{% load ads_tags %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
+
+{% block title %}Saape Success{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-4"></div>
+    <div id="index_div" class="col-sm-4">
+        <div class="row justify-content-center" style="margin-top: 20px; margin-bottom: 20px;">
+            <img class="img-responsive" src="{% static 'saape/images/saape_logo.jpeg' %}" alt="logo" style="height: 100px;">
+        </div>
+        <div class="row justify-content-center">
+            {% render_ads_zone 'sidebar' 'Saape' 'Saape' success_url %}
+        </div>
+        <div class="row justify-content-center" style="margin-top: 15px;">
+            {% render_ads_zone 'content' 'Saape' 'Saape' success_url %}
+        </div>
+        <div class="row justify-content-center" style="margin-top: 15px;">
+            {% render_ads_zone 'sidebar' 'Saape' 'Saape' success_url %}
+        </div>
+        <div class="row justify-content-center" style="margin-top: 10px;">
+            <a href="https://www.google.com" class="btn btn-artcaffee">BROWSE</a>
+        </div>
+        <div id="probtn_content1" class="row justify-content-center">
+            <div id="probtn_additional_params" style="display: none; width: 0px; height: 0px;" style="display: none;">{"domain":"stan-network.app",
+                "SelectAdSet":"5c123caf1102fc0100000002", "HideInFrame":"false", "HideInFrame":"false"}</div>
+            <div id="probtn_additional_params_banner_safeframe" style="display: none; width: 0px; height: 0px;" style="display: none;">{"domain":"stan-network.app",
+                "SelectAdSet":"5c123caf1102fc0100000002", "HideInFrame":"false", "HideInFrame":"false"}</div>
+            <div id="probtn_additional_params_banner_iframe" style="display: none; width: 0px; height: 0px;" style="display: none;">{"domain":"stan-network.app",
+                "SelectAdSet":"5c123caf1102fc0100000002", "HideInFrame":"false", "HideInFrame":"false"}</div>
+            <div id="probtn_dsp_params" style="display: none; width: 0px; height: 0px;" style="display: none;">
+                {"publishers":"skan_network_publishers","campaign_id":"5c123caf1102fc0100000002"} </div>
+        </div>
+        <script type="text/javascript" charset="utf-8" src="https://cdn.probtn.com/probtn_double_loader_with_params_concat.js"></script>
+    </div>
+    <div class="col-sm-4"></div>
+</div>
+{% endblock %}

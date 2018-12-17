@@ -7,6 +7,7 @@ from django.utils import timezone
 
 from ads.models import Ad, Impression
 from ads.utils import get_client_ip
+from django.shortcuts import redirect
 # Create your views here.
 
 

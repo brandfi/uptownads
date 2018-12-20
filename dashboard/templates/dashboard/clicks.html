@@ -9,7 +9,7 @@
 
 {% endblock %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Clicks{% endblock %}
 
 {% block content %}
 <div class="content">
@@ -18,26 +18,22 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-success">
-                        <h4 class="card-title ">Impressions</h4>
-                        <p class="card-category">Impressions for Syste Trendz Ads</p>
+                        <h4 class="card-title ">Clicks</h4>
+                        <p class="card-category">Clicks for Syste Trendz Ads</p>
                     </div>
                     <div class="card-body table-responsive">
-                        <table class="table table-hover" id="impressions-table">
-                            <thead class="text-black-50">
+                        <table class="table table-hover" id="impressions">
+                            <thead class="text-black-50" style="font-weight: bold;">
                                 <th scope="col">Ad Name</th>
-                                <th scope="col">Impression Date</th>
+                                <th scope="col">Click Date</th>
                                 <th scope="col">Session ID</th>
-                                <th scope="col">Venue</th>
-                                <th scope="col">URL</th>
                             </thead>
                             <tbody>
-                                {% for impression in impression_list %}
+                                {% for click in clicks %}
                                 <tr>
-                                    <td>{{ impression.ad }}</td>
-                                    <td>{{ impression.impression_date }}</td>
-                                    <td>{{ impression.session_id }}</td>
-                                    <td>{{ impression.venue }}</td>
-                                    <td>{{ impression.url }}</td>
+                                    <td>{{ click.ad }}</td>
+                                    <td>{{ click.click_date }}</td>
+                                    <td>{{ click.session_id }}</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -50,7 +46,7 @@
 </div>
 <script>
     $(document).ready(function () {
-        $('#impressions-table').DataTable();
+        $('#clicks').DataTable();
     });
 </script>
 {% endblock %}

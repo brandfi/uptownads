@@ -9,7 +9,7 @@
 
 {% endblock %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Impressions{% endblock %}
 
 {% block content %}
 <div class="content">
@@ -22,8 +22,8 @@
                         <p class="card-category">Impressions for Syste Trendz Ads</p>
                     </div>
                     <div class="card-body table-responsive">
-                        <table class="table table-hover" id="impressions-table">
-                            <thead class="text-black-50">
+                        <table class="table table-hover" id="impressions">
+                            <thead class="text-black-50" style="font-weight: bold;">
                                 <th scope="col">Ad Name</th>
                                 <th scope="col">Impression Date</th>
                                 <th scope="col">Session ID</th>
@@ -31,7 +31,7 @@
                                 <th scope="col">URL</th>
                             </thead>
                             <tbody>
-                                {% for impression in impression_list %}
+                                {% for impression in impressions %}
                                 <tr>
                                     <td>{{ impression.ad }}</td>
                                     <td>{{ impression.impression_date }}</td>
@@ -50,7 +50,7 @@
 </div>
 <script>
     $(document).ready(function () {
-        $('#impressions-table').DataTable();
+        $('#impressions').DataTable();
     });
 </script>
 {% endblock %}

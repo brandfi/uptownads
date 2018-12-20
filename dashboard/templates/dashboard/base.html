@@ -13,12 +13,14 @@
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css" />
     {%block css %} {% endblock %}
 
     <!--   Core JS Files   -->
 
     <script src="{% static 'dashboard/js/core/jquery.min.js' %}" type="text/javascript"></script>
     <script src="{% static 'dashboard/js/core/popper.min.js' %}" type="text/javascript"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="{% static 'dashboard/js/core/bootstrap-material-design.min.js' %}" type="text/javascript"></script>
 
     <!-- Plugin for the Perfect Scrollbar -->
@@ -80,7 +82,46 @@
 
 <body>
     <div class="wrapper">
-        {% block content %}{% endblock %}
+        <div class="sidebar" data-color="green" data-background-color="white" data-image="{% static 'dashboard/img/sidebar-1.jpg' %}">
+            <div class="logo">
+                <a href="{% url 'dashboard:index' %}" class="simple-text logo-normal">
+                    Uptown Dashboard
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'dashboard:index' %}">
+                            <i class="material-icons">dashboard</i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{% url 'dashboard:graphs' %}">
+                            <i class="material-icons">content_paste</i>
+                            <p>Graphs</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+        </nav>
+        <!-- End Navbar -->
+        <div class="main-panel">
+            {% block content %}{% endblock %}
+        </div>
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="float-left">
+
+                </nav>
+                <div class="copyright float-right">
+
+                </div>
+            </div>
+        </footer>
     </div>
 </body>
 

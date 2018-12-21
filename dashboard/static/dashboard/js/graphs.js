@@ -4,13 +4,13 @@ $(document).ready(function () {
         .getBoundingClientRect().width;
 
     var margin = {
-            top: 20,
+            top: 30,
             right: 20,
             bottom: 30,
             left: 40
         },
         width = div_width - margin.left - margin.right,
-        height = 450 - margin.top - margin.bottom;
+        height = 550 - margin.top - margin.bottom;
 
     var x = d3.scaleBand().rangeRound([0, width]).padding(0.1);
     var y = d3.scaleLinear().rangeRound([height, 0]);
@@ -21,7 +21,7 @@ $(document).ready(function () {
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var url = "http://" + window.location.hostname + '/dashboard/impressions-api/';
+    var url = "http://" + window.location.hostname + ':' + window.location.port + '/dashboard/impressions-api/';
 
     d3.json(url).then(function (data) {
         var jsonData = JSON.parse(data);
@@ -42,11 +42,17 @@ $(document).ready(function () {
         // Call the x axis in a group tag
         svg.append("g")
             .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x));
+            .call(d3.axisBottom(x))
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("font", "sans-serif")
+            .attr("font-size", "12px")
+            .attr("font-weight", "bold")
+            .attr("transform", "rotate(-90)");
 
         // text label for the x axis
         svg.append("text")
-            .attr("transform", "translate(" + (width / 2) + " ," + (height + margin.top + 20) + ")")
+            .attr("transform", "translate(" + (width / 2) + " ," + (height + margin.top + 10) + ")")
             .style("text-anchor", "middle")
             .attr("font", "sans-serif")
             .attr("font-size", "12px")
@@ -71,7 +77,8 @@ $(document).ready(function () {
 
         svg.selectAll(".bar")
             .data(jsonData)
-            .enter().append("rect")
+            .enter()
+            .append("rect")
             .attr("class", "bar")
             .attr("x", function (d) {
                 return x(d.title);
@@ -84,6 +91,7 @@ $(document).ready(function () {
                 return height - y(d.count);
             });
 
+
         // Add a title to the graph
         svg.append("text")
             .attr("x", (width / 2))
@@ -93,5 +101,6 @@ $(document).ready(function () {
             .attr("font", "sans-serif")
             .attr("font-weight", "bold")
             .text("Impressions per Ad");
+
     });
 });

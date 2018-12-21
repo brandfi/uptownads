@@ -14,6 +14,6 @@ urlpatterns = [
          views.clicks, name='clicks'),
     path('impressions-api/',
          views.impressions_api, name='impressions-api'),
-    path('graphs/',
-         views.graphs, name='graphs'),
+    path('ad-datetime/api/<str:title>/',
+         views.ad_datetime, name='ad-datetime'),
 ]

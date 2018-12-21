@@ -31,6 +31,7 @@ def impression_list(request, title):
 
     context = {
         'impression_list': impression_list,
+        'title': title,
     }
     return render(request, 'dashboard/impression-list.html', context)
 
@@ -67,5 +68,19 @@ def impressions_api(request):
     return JsonResponse(jsonData, safe=False)
 
 
-def graphs(request):
-    return render(request, 'dashboard/graphs.html')
+def ad_datetime(request, title):
+    graph_data = Impression.objects.filter(ad__title=title).extra(
+        {
+            'date_created': "date(impression_date)"
+        }).values('date_created').annotate(
+            created_count=Count('impression_date')).order_by("date_created")
+
+    data_list = []
+    for data in graph_data:
+        item = {
+            "impression_date": "{:%m/%d/%Y}".format(data.get('date_created'))}
+        item["count"] = data.get('created_count')
+        data_list.append(item)
+
+    jsonData = json.dumps(data_list)
+    return JsonResponse(jsonData, safe=False)

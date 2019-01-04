@@ -6,11 +6,11 @@ $(document).ready(function () {
     var margin = {
             top: 30,
             right: 20,
-            bottom: 30,
+            bottom: 200,
             left: 40
         },
         width = div_width - margin.left - margin.right,
-        height = 550 - margin.top - margin.bottom;
+        height = 700 - margin.top - margin.bottom;
 
     var x = d3.scaleBand().rangeRound([0, width]).padding(0.1);
     var y = d3.scaleLinear().rangeRound([height, 0]);
@@ -44,15 +44,18 @@ $(document).ready(function () {
             .attr("transform", "translate(0," + height + ")")
             .call(d3.axisBottom(x))
             .selectAll("text")
-            .style("text-anchor", "end")
+            .attr("y", 0)
+            .attr("x", 9)
+            .attr("dy", ".35em")
+            .attr("transform", "rotate(90)")
             .attr("font", "sans-serif")
             .attr("font-size", "12px")
             .attr("font-weight", "bold")
-            .attr("transform", "rotate(-90)");
+            .style("text-anchor", "start");
 
         // text label for the x axis
         svg.append("text")
-            .attr("transform", "translate(" + (width / 2) + " ," + (height + margin.top + 10) + ")")
+            .attr("transform", "translate(" + (width / 2) + " ," + (height + margin.top + 30) + ")")
             .style("text-anchor", "middle")
             .attr("font", "sans-serif")
             .attr("font-size", "12px")
@@ -75,6 +78,9 @@ $(document).ready(function () {
             .attr("font-weight", "bold")
             .text("Total Count");
 
+
+        var tooltip = d3.select("#div-ads").append("div").attr("class", "toolTip");
+
         svg.selectAll(".bar")
             .data(jsonData)
             .enter()
@@ -89,6 +95,15 @@ $(document).ready(function () {
             .attr("width", x.bandwidth())
             .attr("height", function (d) {
                 return height - y(d.count);
+            }).on("mousemove", function (d) {
+                tooltip
+                    .style("left", d3.event.pageX - 50 + "px")
+                    .style("top", d3.event.pageY - 70 + "px")
+                    .style("display", "inline-block")
+                    .html((d.title) + "<br>" + "£" + (d.count));
+            })
+            .on("mouseout", function (d) {
+                tooltip.style("display", "none");
             });
 
 

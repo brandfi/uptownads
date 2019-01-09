@@ -10,7 +10,7 @@ $(document).ready(function () {
             left: 40
         },
         width = div_width - margin.left - margin.right,
-        height = 700 - margin.top - margin.bottom;
+        height = 1000 - margin.top - margin.bottom;
 
     var x = d3.scaleBand().rangeRound([0, width]).padding(0.1);
     var y = d3.scaleLinear().rangeRound([height, 0]);

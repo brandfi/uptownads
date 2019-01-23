@@ -32,7 +32,7 @@ urlpatterns = [
     path('saape/', include('saape.urls')),
     path('taylorgray/', include('taylorgray.urls')),
     path('kahawa/', include('kahawa.urls')),
-    path('dashboard/', include('dashboard.urls')),
+    path('standashboard/', include('standashboard.urls')),
     path('adtest/', include('adtest.urls')),
     path('admin/', admin.site.urls),
 ]

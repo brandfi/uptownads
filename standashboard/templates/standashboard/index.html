@@ -1,4 +1,4 @@
-{% extends "dashboard/base.html" %}
+{% extends "standashboard/base.html" %}
 {% load static %}
 
 {% block css %}
@@ -6,10 +6,10 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{% static 'dashboard/js/graphs.js' %}" type="text/javascript"></script>
+<script src="{% static 'standashboard/js/graphs.js' %}" type="text/javascript"></script>
 {% endblock %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Stan Dashboard{% endblock %}
 
 {% block content %}
 
@@ -20,17 +20,17 @@
                 <div class="card card-stats" id="impression-card">
                     <div class="card-header card-header-success card-header-icon">
                         <div class="card-icon">
-                            <a href="{% url 'dashboard:impressions' %}"></a>
+                            <a href="{% url 'standashboard:impressions' %}"></a>
                             <i class="material-icons">content_copy</i>
                         </div>
-                        <p class="card-category">Ad Impressions</p>
+                        <p class="card-category" style="font-weight: bold;">Total Ad Impressions</p>
                         <h3 class="card-title" style="font-weight: bold;">
                             {{ impressions_count }}
                         </h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <a href="{% url 'dashboard:impressions' %}">View</a>
+                            <a href="{% url 'standashboard:impressions' %}">View</a>
                         </div>
                     </div>
                 </div>
@@ -39,17 +39,17 @@
                 <div class="card card-stats">
                     <div class="card-header card-header-success card-header-icon">
                         <div class="card-icon">
-                            <a href="{% url 'dashboard:impressions' %}"></a>
+                            <a href="{% url 'standashboard:impressions' %}"></a>
                             <i class="material-icons">store</i>
                         </div>
-                        <p class="card-category">Ad Clicks</p>
+                        <p class="card-category" style="font-weight: bold;">Total Ad Clicks</p>
                         <h3 class="card-title" style="font-weight: bold;">
                             {{ click_count }}
                         </h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <a href="{% url 'dashboard:clicks' %}">View</a>
+                            <a href="{% url 'standashboard:clicks' %}">View</a>
                         </div>
                     </div>
                 </div>
@@ -60,12 +60,12 @@
                         <div class="card-icon">
                             <i class="material-icons">info_outline</i>
                         </div>
-                        <p class="card-category">Top venue by impressions</p>
+                        <p class="card-category" style="font-weight: bold;">Top venue by impressions</p>
                         <h3 class="card-title" style="font-weight: bold;">{{ venue_max }}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <a href="{% url 'dashboard:clicks' %}">View</a>
+                            <a href="{% url 'standashboard:clicks' %}">View</a>
                         </div>
                     </div>
                 </div>
@@ -78,8 +78,8 @@
                         <div class="ct-chart" id="dailySalesChart"></div>
                     </div>
                     <div class="card-body">
-                        <h4 class="card-title">Today's Impressions</h4>
-                        <h3 class="card-title" style="font-weight: bold;"></h3>
+                        <h4 class="card-title" style="font-weight: bold;">Today's Impressions</h4>
+                        <h3 class="card-title" style="font-weight: bold;">0</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -95,7 +95,7 @@
                     </div>
                     <div class="card-body">
                         <h4 class="card-title">Todays Clicks</h4>
-                        <h3 class="card-title" style="font-weight: bold;"></h3>
+                        <h3 class="card-title" style="font-weight: bold;">0</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -123,7 +123,7 @@
                             <tbody>
                                 {% for ad in ad_list %}
                                 <tr>
-                                    <td><a href="{% url 'dashboard:impression-list' ad.title %}">{{ ad.title }}</a></td>
+                                    <td><a href="{% url 'standashboard:impression-list' ad.title %}">{{ ad.title }}</a></td>
                                     <td>{{ ad.category }}</td>
                                     <td>{{ ad.advertiser }}</td>
                                     <td>{{ ad.no_of_impressions }}</td>
@@ -142,7 +142,7 @@
                         <h4 class="card-title" style="font-weight: bold;">Ad Graph Stats</h4>
                         <p class="card-category" style="font-weight: bold;">Graphical representation of ad stats</p>
                     </div>
-                    <div class="card-body" id="div-ads" style="height: 1500px;">
+                    <div class="card-body" id="div-ads">
                         <svg id="ads"></svg>
                     </div>
                 </div>

@@ -6,11 +6,11 @@ $(document).ready(function () {
     var margin = {
             top: 30,
             right: 20,
-            bottom: 200,
+            bottom: 100,
             left: 40
         },
         width = div_width - margin.left - margin.right,
-        height = 1000 - margin.top - margin.bottom;
+        height = 600 - margin.top - margin.bottom;
 
     var x = d3.scaleBand().rangeRound([0, width]).padding(0.1);
     var y = d3.scaleLinear().rangeRound([height, 0]);
@@ -21,7 +21,7 @@ $(document).ready(function () {
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var url = "http://" + window.location.hostname + ':' + window.location.port + '/dashboard/impressions-api/';
+    var url = "http://" + window.location.hostname + ':' + window.location.port + '/standashboard/total-events/api/';
 
     d3.json(url).then(function (data) {
         var jsonData = JSON.parse(data);
@@ -46,7 +46,7 @@ $(document).ready(function () {
             .selectAll("text")
             .attr("y", 0)
             .attr("x", 9)
-            .attr("dy", ".35em")
+            .attr("dy", ".100em")
             .attr("transform", "rotate(90)")
             .attr("font", "sans-serif")
             .attr("font-size", "12px")
@@ -78,9 +78,6 @@ $(document).ready(function () {
             .attr("font-weight", "bold")
             .text("Total Count");
 
-
-        var tooltip = d3.select("#div-ads").append("div").attr("class", "toolTip");
-
         svg.selectAll(".bar")
             .data(jsonData)
             .enter()
@@ -95,15 +92,6 @@ $(document).ready(function () {
             .attr("width", x.bandwidth())
             .attr("height", function (d) {
                 return height - y(d.count);
-            }).on("mousemove", function (d) {
-                tooltip
-                    .style("left", d3.event.pageX - 50 + "px")
-                    .style("top", d3.event.pageY - 70 + "px")
-                    .style("display", "inline-block")
-                    .html((d.title) + "<br>" + "£" + (d.count));
-            })
-            .on("mouseout", function (d) {
-                tooltip.style("display", "none");
             });
 
 
@@ -115,7 +103,7 @@ $(document).ready(function () {
             .style("font-size", "14px")
             .attr("font", "sans-serif")
             .attr("font-weight", "bold")
-            .text("Impressions per Ad");
+            .text("Impressions per Event");
 
     });
 });

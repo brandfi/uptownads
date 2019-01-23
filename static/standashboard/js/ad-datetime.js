@@ -42,7 +42,7 @@ $(document).ready(function () {
 
 
     var url = "http://" + window.location.hostname + ':' + window.location.port +
-        '/dashboard/ad-datetime/api/' + title + '/';
+        '/standashboard/ad-datetime/api/' + title + '/';
 
     // Get the data for plotting
     d3.json(url).then(function (jsonData) {

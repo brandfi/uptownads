@@ -1,15 +1,15 @@
-{% extends "dashboard/base.html" %}
+{% extends "standashboard/base.html" %}
 {% load static %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'dashboard/css/impression-list.css' %}" />
+<link rel="stylesheet" href="{% static 'standashboard/css/impression-list.css' %}" />
 {% endblock %}
 
 {% block scripts %}
-<script src="{% static 'dashboard/js/ad-datetime.js' %}" type="text/javascript"></script>
+
 {% endblock %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Impressions{% endblock %}
 
 {% block content %}
 <div class="content">
@@ -22,20 +22,18 @@
                         <p class="card-category">Impressions for Syste Trendz Ads</p>
                     </div>
                     <div class="card-body table-responsive">
-                        <table class="table table-hover" id="impressions-table">
-                            <thead class="text-black-50">
+                        <table class="table table-hover" id="impressions">
+                            <thead class="text-black-50" style="font-weight: bold;">
                                 <th scope="col">Ad Name</th>
                                 <th scope="col">Impression Date</th>
-                                <th scope="col">Session ID</th>
                                 <th scope="col">Venue</th>
                                 <th scope="col">URL</th>
                             </thead>
                             <tbody>
-                                {% for impression in impression_list %}
+                                {% for impression in impressions %}
                                 <tr>
                                     <td>{{ impression.ad }}</td>
                                     <td>{{ impression.impression_date }}</td>
-                                    <td>{{ impression.session_id }}</td>
                                     <td>{{ impression.venue }}</td>
                                     <td>{{ impression.url }}</td>
                                 </tr>
@@ -46,25 +44,10 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <input type="hidden" id="title" name="title" value="{{ title }}">
-                <div class="card">
-                    <div class="card-header card-header-success">
-                        <h4 class="card-title ">Impressions</h4>
-                        <p class="card-category">Graphical representation of impessions</p>
-                    </div>
-                    <div class="card-body" id="div-addatetime">
-                        <svg id="ad-datetime"></svg>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-</div>
-<script>
-    $(document).ready(function () {
-        $('#impressions-table').DataTable();
-    });
-</script>
-{% endblock %}
+    <script>
+        $(document).ready(function () {
+            $('#impressions').DataTable();
+        });
+    </script>
+    {% endblock %}

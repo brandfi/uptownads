@@ -103,7 +103,7 @@ $(document).ready(function () {
             .style("font-size", "14px")
             .attr("font", "sans-serif")
             .attr("font-weight", "bold")
-            .text("Impressions per day");
+            .text("Clicks per day");
 
         // Append the path, bind the data, and call the line generator
         svg.append("path")
@@ -241,23 +241,36 @@ $(document).ready(function () {
                 .attr("transform", "translate(" + width * -1 + "," + y(d.count) + ")")
                 .attr("x2", width + width);
         }
+    });
 
-        function updateGraph(data) {
+    function updateGraph(section) {
+        var url = "http://" + window.location.hostname + ':' + window.location.port +
+            '/standashboard/click-datetime/api/' + section + '/';
+        d3.json(url).then(function (updatedJsonData) {
+            var updatedData = JSON.parse(updatedJsonData);
+            updatedData.forEach(function (d) {
+                console.log(d.impression_date);
+                // Converts the price_date string to a JavaScript Date Object
+                d.impression_date = parseTime(d.impression_date);
+
+                // Converts the closing_price from a string to a number.
+                d.count = +d.count;
+            });
+
             // set the domain of the x scale function
-            x.domain(d3.extent(data, function (d) {
+            x.domain(d3.extent(updatedData, function (d) {
                 return d.impression_date;
             }));
 
-            y.domain([0, d3.max(data, function (d) {
+            y.domain([0, d3.max(updatedData, function (d) {
                 return d.count;
             })]);
 
-            var state = svg.selectAll("path.line")
-                .data(data);
+            var svg = d3.select("#venue-datetime").transition();
 
-            state.transition()
+            svg.select(".line")
                 .duration(1000)
-                .attr("d", line); // Calls the line generator
+                .attr("d", line(updatedData)); // Calls the line generator
 
             // Call the x axis in a group tag
             svg.append("g")
@@ -267,30 +280,14 @@ $(document).ready(function () {
             // Call the y axis in a group tag
             svg.append("g")
                 .call(d3.axisLeft(y));
-        };
+        });
+    }
 
-        d3.select('#inds')
-            .on("change", function () {
-                var sect = document.getElementById("inds");
-                var section = sect.options[sect.selectedIndex].value;
-                console.log(section);
-                //data = filterJSON(json, 'produce', section);
-                //debugger
-                var url = "http://" + window.location.hostname + ':' + window.location.port +
-                    '/standashboard/venue-datetime/api/' + section + '/';
-                d3.json(url).then(function (jsonData) {
-                    var data = JSON.parse(jsonData);
-                    data.forEach(function (d) {
-                        console.log(d.impression_date);
-                        // Converts the price_date string to a JavaScript Date Object
-                        d.impression_date = parseTime(d.impression_date);
-
-                        // Converts the closing_price from a string to a number.
-                        d.count = +d.count;
-                    });
-                });
-                updateGraph(data);
-            });
-
-    });
+    d3.select('#inds')
+        .on("change", function () {
+            var sect = document.getElementById("inds");
+            var section = sect.options[sect.selectedIndex].value;
+            console.log(section);
+            updateGraph(section);
+        });
 })

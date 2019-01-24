@@ -2,7 +2,7 @@ $(document).ready(function () {
     var title = $('#title').val();
 
     // Use the margin convention practice
-    var div_width = document.querySelector("#div-venuedatetime")
+    var div_width = document.querySelector("#div-addatetime")
         .getBoundingClientRect();
 
     var graph_width = div_width.right - div_width.left;
@@ -34,7 +34,7 @@ $(document).ready(function () {
         });
 
     // Add the SVG to the page and employ
-    var svg = d3.select("#venue-datetime")
+    var svg = d3.select("#ad-datetime")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
@@ -42,7 +42,7 @@ $(document).ready(function () {
 
 
     var url = "http://" + window.location.hostname + ':' + window.location.port +
-        '/standashboard/venue-datetime/api/' + 'Kahawa' + '/';
+        '/standashboard/clickad-datetime/api/' + title + '/';
 
     // Get the data for plotting
     d3.json(url).then(function (jsonData) {
@@ -112,7 +112,6 @@ $(document).ready(function () {
             .attr("stroke", "steelblue")
             .attr("stroke-width", 1.5)
             .attr("shape-rendering", "crispEdges")
-            .attr("class", "line")
             .attr("d", line); // Calls the line generator
 
         // Allow mouse over on the graph
@@ -241,54 +240,7 @@ $(document).ready(function () {
                 .attr("transform", "translate(" + width * -1 + "," + y(d.count) + ")")
                 .attr("x2", width + width);
         }
+
+
     });
-
-    function updateGraph(section) {
-
-        var url = "http://" + window.location.hostname + ':' + window.location.port +
-            '/standashboard/venue-datetime/api/' + section + '/';
-        d3.json(url).then(function (updatedJsonData) {
-            var updatedData = JSON.parse(updatedJsonData);
-            updatedData.forEach(function (d) {
-                console.log(d.impression_date);
-                // Converts the price_date string to a JavaScript Date Object
-                d.impression_date = parseTime(d.impression_date);
-
-                // Converts the closing_price from a string to a number.
-                d.count = +d.count;
-            });
-
-            // set the domain of the x scale function
-            x.domain(d3.extent(updatedData, function (d) {
-                return d.impression_date;
-            }));
-
-            y.domain([0, d3.max(updatedData, function (d) {
-                return d.count;
-            })]);
-
-            var svg = d3.select("#venue-datetime").transition();
-
-            svg.select(".line")
-                .duration(1000)
-                .attr("d", line(updatedData)); // Calls the line generator
-
-            // Call the x axis in a group tag
-            svg.append("g")
-                .attr("transform", "translate(0," + height + ")")
-                .call(d3.axisBottom(x));
-
-            // Call the y axis in a group tag
-            svg.append("g")
-                .call(d3.axisLeft(y));
-        });
-    }
-
-    d3.select('#inds')
-        .on("change", function () {
-            var sect = document.getElementById("inds");
-            var section = sect.options[sect.selectedIndex].value;
-            console.log(section);
-            updateGraph(section);
-        });
 })

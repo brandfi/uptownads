@@ -7,6 +7,7 @@
 
 {% block scripts %}
 <script src="{% static 'standashboard/js/graphs.js' %}" type="text/javascript"></script>
+<script src="{% static 'standashboard/js/total-clicks.js' %}" type="text/javascript"></script>
 {% endblock %}
 
 {% block title %}Stan Dashboard{% endblock %}
@@ -83,41 +84,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <a href="{% url 'standashboard:venues' %}">View</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card card-chart">
-                    <div class="card-header card-header-success">
-                        <div class="ct-chart" id="dailySalesChart"></div>
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title" style="font-weight: bold;">Today's Impressions</h4>
-                        <h3 class="card-title" style="font-weight: bold;">0</h3>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons">access_time</i> updated on {% now "jS F Y H:i" %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card card-chart">
-                    <div class="card-header card-header-success">
-                        <div class="ct-chart" id="websiteViewsChart"></div>
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title">Todays Clicks</h4>
-                        <h3 class="card-title" style="font-weight: bold;">0</h3>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons">access_time</i>updated on {% now "jS F Y H:i" %}
+                            <a href="{% url 'standashboard:click-venues' %}">View</a>
                         </div>
                     </div>
                 </div>
@@ -127,7 +94,7 @@
             <div class="col-lg-12 col-md-12">
                 <div class="card">
                     <div class="card-header card-header-success">
-                        <h4 class="card-title" style="font-weight: bold;">Ad Stats</h4>
+                        <h4 class="card-title" style="font-weight: bold;">Ad Stats based on Impressions</h4>
                         <p class="card-category" style="font-weight: bold;">Current ads for Syte trendz</p>
                     </div>
                     <div class="card-body table-responsive">
@@ -166,6 +133,49 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-success">
+                        <h4 class="card-title" style="font-weight: bold;">Ad Stats based on Clicks</h4>
+                        <p class="card-category" style="font-weight: bold;">Current ads for Syte trendz</p>
+                    </div>
+                    <div class="card-body table-responsive">
+                        <table class="table table-hover" id="ads-clicks-table">
+                            <thead class="text-black-50">
+                                <th>Ad Name</th>
+                                <th>Category</th>
+                                <th>Advertiser</th>
+                                <th>Clicks</th>
+                            </thead>
+                            <tbody>
+                                {% for ad in ad_click_list %}
+                                <tr>
+                                    <td><a href="{% url 'standashboard:click-list' ad.title %}">{{ ad.title }}</a></td>
+                                    <td>{{ ad.category }}</td>
+                                    <td>{{ ad.advertiser }}</td>
+                                    <td>{{ ad.no_of_impressions }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-success">
+                        <h4 class="card-title" style="font-weight: bold;">Ad Graph Stats Clicks</h4>
+                        <p class="card-category" style="font-weight: bold;">Graphical representation of ad click stats</p>
+                    </div>
+                    <div class="card-body" id="div-clickads">
+                        <svg id="adsclicks"></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <style>
         .bar {
@@ -179,6 +189,7 @@
     <script>
         $(document).ready(function () {
             $('#ads-table').DataTable();
+            $('#ads-clicks-table').DataTable();
             $("#impression-card").click(function () {
                 window.location = $(this).find("a").attr("href");
                 return false;

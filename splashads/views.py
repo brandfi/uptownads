@@ -95,10 +95,10 @@ def signup(request):
         # Create a user
 
         user = {
-            "username": 'NULL',
+            "username": username,
             "macAddress": client_mac,
             "mobileNumber": phone_number,
-            "name": name,
+            "name": 'NULL',
             "email": "NULL",
             "ssid": ssid,
             "attribute": "Cleartext-Password",

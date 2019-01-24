@@ -100,7 +100,7 @@ def signup(request):
             "macAddress": client_mac,
             "mobileNumber": phone_number,
             "name": name,
-            "email": email,
+            "email": "NULL",
             "ssid": ssid,
             "attribute": "Cleartext-Password",
             "op": ":=",

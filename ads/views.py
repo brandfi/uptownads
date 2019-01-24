@@ -23,15 +23,14 @@ class AdClickView(SingleObjectMixin, View):
 
     def get(self, request, *args, **kwargs):
         ad = self.get_object()
-        if request.session.session_key:
-            click, created = Click.objects.get_or_create(
-                ad=ad,
-                session_id=request.session.session_key,
-                defaults={
-                    'click_date': timezone.now(),
-                    'source_ip': get_client_ip(request),
-                    'venue': self.kwargs['venue'],
-                })
+        click, created = Click.objects.get_or_create(
+            ad=ad,
+            session_id=request.session.session_key,
+            defaults={
+                'click_date': timezone.now(),
+                'source_ip': get_client_ip(request),
+                'venue': self.kwargs['venue'],
+            })
         return HttpResponseRedirect(ad.url)
 
 

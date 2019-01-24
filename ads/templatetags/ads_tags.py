@@ -24,15 +24,14 @@ def render_ads_zone(context, zone, venue_title, venue, url):
     ad = Ad.objects.random_ad(zone, venue_title)
     if ad is not None:
         request = context['request']
-        if request.session.session_key:
-            impression, created = Impression.objects.get_or_create(
-                ad=ad,
-                session_id=request.session.session_key,
-                defaults={
-                    'impression_date': timezone.now(),
-                    'source_ip': get_client_ip(request),
-                    'venue': venue,
-                })
+        impression, created = Impression.objects.get_or_create(
+            ad=ad,
+            session_id=request.session.session_key,
+            defaults={
+                'impression_date': timezone.now(),
+                'source_ip': get_client_ip(request),
+                'venue': venue,
+            })
     context.update({
         'ad': ad,
         'venue': venue_title,
@@ -48,14 +47,13 @@ def render_static_zone(context, title, zone):
 
     if ad is not None:
         request = context['request']
-        if request.session.session_key:
-            impression, created = Impression.objects.get_or_create(
-                ad=ad,
-                session_id=request.session.session_key,
-                defaults={
-                    'impression_date': timezone.now(),
-                    'source_ip': get_client_ip(request),
-                })
+        impression, created = Impression.objects.get_or_create(
+            ad=ad,
+            session_id=request.session.session_key,
+            defaults={
+                'impression_date': timezone.now(),
+                'source_ip': get_client_ip(request),
+            })
     context.update({
         'ad': ad,
         'zone': settings.ADS_ZONES.get(zone, None)

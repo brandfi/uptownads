@@ -22,7 +22,6 @@ def render_ads_zone(context, zone, venue_title, venue, url):
 
     # Retrieve random ad for the zone based on weight
     ad = Ad.objects.random_ad(zone, venue_title)
-
     if ad is not None:
         request = context['request']
         if request.session.session_key:
@@ -33,10 +32,10 @@ def render_ads_zone(context, zone, venue_title, venue, url):
                     'impression_date': timezone.now(),
                     'source_ip': get_client_ip(request),
                     'venue': venue,
-                    'url': url,
                 })
     context.update({
         'ad': ad,
+        'venue': venue_title,
         'zone': settings.ADS_ZONES.get(zone, None)
     })
     return context

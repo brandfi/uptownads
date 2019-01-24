@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block scripts %}
-
+<script src="{% static 'standashboard/js/total_impressions.js' %}" type="text/javascript"></script>
 {% endblock %}
 
 {% block title %}Impressions{% endblock %}
@@ -14,6 +14,18 @@
 {% block content %}
 <div class="content">
     <div class="container-fluid">
+        <div class="row">
+            <div class="card">
+                <div class="card-header card-header-success">
+                    <h4 class="card-title" style="font-weight: bold;">Impressions Graph Stats</h4>
+                    <p class="card-category" style="font-weight: bold;">Graphical representation of total impressions
+                        stats</p>
+                </div>
+                <div class="card-body" id="div-total_impressions">
+                    <svg id="total_impressions"></svg>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">

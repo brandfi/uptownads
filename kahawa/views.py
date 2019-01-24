@@ -8,7 +8,7 @@ from splashads.generate import TOTPVerification
 from django.conf import settings
 from django.utils import timezone
 
-from ads.models import Ad, Impression
+from ads.models import Ad, Impression, Click
 from ads.utils import get_client_ip
 
 import requests

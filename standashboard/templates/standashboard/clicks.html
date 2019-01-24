@@ -2,99 +2,62 @@
 {% load static %}
 
 {% block css %}
-
+<link rel="stylesheet" href="{% static 'standashboard/css/impression-list.css' %}" />
 {% endblock %}
 
 {% block scripts %}
-<script src="{% static 'standashboard/js/events.js' %}" type="text/javascript"></script>
+<script src="{% static 'standashboard/js/total_clicks.js' %}" type="text/javascript"></script>
 {% endblock %}
 
-{% block title %}Venue Data{% endblock %}
+{% block title %}Clicks{% endblock %}
 
 {% block content %}
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-3">
-                <div class="card card-stats" id="impression-card">
-                    <div class="card-header card-header-success card-header-icon">
-                        <div class="card-icon">
-                            <a href="{% url 'standashboard:impressions' %}"></a>
-                            <i class="material-icons">info_outline</i>
-                        </div>
-                        <p class="card-category" style="font-weight: bold;">Uptown</p>
-                        <h3 class="card-title" style="font-weight: bold;">
-                            689
-                        </h3>
-                    </div>
+            <div class="card">
+                <div class="card-header card-header-success">
+                    <h4 class="card-title" style="font-weight: bold;">Clicks Graph Stats</h4>
+                    <p class="card-category" style="font-weight: bold;">Graphical representation of total clicks
+                        stats</p>
                 </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="card card-stats">
-                    <div class="card-header card-header-success card-header-icon">
-                        <div class="card-icon">
-                            <a href="{% url 'standashboard:impressions' %}"></a>
-                            <i class="material-icons">info_outline</i>
-                        </div>
-                        <p class="card-category" style="font-weight: bold;">Saape</p>
-                        <h3 class="card-title" style="font-weight: bold;">
-                            968
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="card card-stats">
-                    <div class="card-header card-header-success card-header-icon">
-                        <div class="card-icon">
-                            <i class="material-icons">info_outline</i>
-                        </div>
-                        <p class="card-category" style="font-weight: bold;">Kahawa</p>
-                        <h3 class="card-title" style="font-weight: bold;">
-                            329
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="card card-stats">
-                    <div class="card-header card-header-success card-header-icon">
-                        <div class="card-icon">
-                            <i class="material-icons">info_outline</i>
-                        </div>
-                        <p class="card-category" style="font-weight: bold;">Taylor Gray</p>
-                        <h3 class="card-title" style="font-weight: bold;">
-                            404
-                        </h3>
-                    </div>
+                <div class="card-body" id="div-total_clicks">
+                    <svg id="total_clicks"></svg>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12 col-md-12">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-success">
-                        <h4 class="card-title" style="font-weight: bold;">Event Graph Stats</h4>
-                        <p class="card-category" style="font-weight: bold;">Graphical representation of event stats</p>
+                        <h4 class="card-title ">Clicks</h4>
+                        <p class="card-category">Clicks for Syste Trendz Ads</p>
                     </div>
-                    <div class="card-body" id="div-ads">
-                        <svg id="ads"></svg>
+                    <div class="card-body table-responsive">
+                        <table class="table table-hover" id="clicks">
+                            <thead class="text-black-50" style="font-weight: bold;">
+                                <th scope="col">Ad Name</th>
+                                <th scope="col">Click Date</th>
+                                <th scope="col">Venue</th>
+                            </thead>
+                            <tbody>
+                                {% for click in clicks %}
+                                <tr>
+                                    <td>{{ click.ad }}</td>
+                                    <td>{{ click.click_date }}</td>
+                                    <td>{{ click.venue }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<style>
-    .bar {
-        fill: green;
-    }
-
-    .axis--x path {
-        display: none;
-    }
-</style>
-<script>
-
-</script>
-{% endblock %}
+    <script>
+        $(document).ready(function () {
+            $('#clicks').DataTable();
+        });
+    </script>
+    {% endblock %}

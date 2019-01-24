@@ -16,7 +16,7 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats" id="impression-card">
                     <div class="card-header card-header-success card-header-icon">
                         <div class="card-icon">
@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-header card-header-success card-header-icon">
                         <div class="card-icon">
@@ -54,18 +54,36 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-header card-header-success card-header-icon">
                         <div class="card-icon">
                             <i class="material-icons">info_outline</i>
                         </div>
                         <p class="card-category" style="font-weight: bold;">Top venue by impressions</p>
-                        <h3 class="card-title" style="font-weight: bold;">{{ venue_max }}</h3>
+                        <h3 class="card-title" style="font-weight: bold;">{{ venue_max.first.venue}}</h3>
+                        <h4 class="card-title" style="font-weight: bold;">{{ venue_max.first.total }}</h4>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <a href="{% url 'standashboard:clicks' %}">View</a>
+                            <a href="{% url 'standashboard:venues' %}">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">info_outline</i>
+                        </div>
+                        <p class="card-category" style="font-weight: bold;">Top venue by Clicks</p>
+                        <h3 class="card-title" style="font-weight: bold;">{{ click_max.first.venue}}</h3>
+                        <h4 class="card-title" style="font-weight: bold;">{{ click_max.first.total }}</h4>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <a href="{% url 'standashboard:venues' %}">View</a>
                         </div>
                     </div>
                 </div>

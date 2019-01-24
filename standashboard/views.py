@@ -14,13 +14,17 @@ def index(request):
     click_count = Click.objects.count()
     ad_list = Ad.objects.annotate(
         no_of_impressions=Count('impressions'))
-    impression_max = Impression.objects.all().aggregate(Max('venue'))
+    impression_max = Impression.objects.all().values('venue').annotate(
+        total=Count('venue')).order_by('-total')
+    click_max = Click.objects.all().values('venue').annotate(
+        total=Count('venue')).order_by('-total')
 
     context = {
         'impressions_count': impressions_count,
         'click_count': click_count,
         'ad_list': ad_list,
-        'venue_max': impression_max.get('venue__max'),
+        'venue_max': impression_max,
+        'click_max': click_max,
     }
     return render(request, 'standashboard/index.html', context)
 
@@ -65,11 +69,28 @@ def total_impressions(request):
 
 def clicks(request):
     clicks = Click.objects.all().order_by('-click_date')
-
     context = {
         'clicks': clicks,
     }
     return render(request, 'standashboard/clicks.html', context)
+
+
+def venues(request):
+    top_venue = Impression.objects.all().values('venue').annotate(
+        total=Count('venue')).order_by('-total')
+    context = {
+        'top_venue': top_venue,
+    }
+    return render(request, 'standashboard/venues.html', context)
+
+
+def click_venues(request):
+    top_click = Click.objects.all().values('venue').annotate(
+        total=Count('venue')).order_by('-total')
+    context = {
+        'top_click': top_click,
+    }
+    return render(request, 'standashboard/click_venue.html', context)
 
 
 def impressions_api(request):
@@ -87,13 +108,28 @@ def impressions_api(request):
 
 
 def venues_api(request):
-    venues = Venue
-    ads = Ad.objects.annotate(
-        no_of_venues=Count('venues'))
+    top_venue = Impression.objects.all().values('venue').annotate(
+        total=Count('venue')).order_by('-total')
 
     data = []
-    for ad in ads:
-        print(ad.no_of_venues)
+    for v in top_venue:
+        item = {"title": v['venue']}
+        item["count"] = v['total']
+        data.append(item)
+
+    jsonData = json.dumps(data)
+    return JsonResponse(jsonData, safe=False)
+
+
+def click_api(request):
+    top_venue = Click.objects.all().values('venue').annotate(
+        total=Count('venue')).order_by('-total')
+
+    data = []
+    for v in top_venue:
+        item = {"title": v['venue']}
+        item["count"] = v['total']
+        data.append(item)
 
     jsonData = json.dumps(data)
     return JsonResponse(jsonData, safe=False)
@@ -108,6 +144,96 @@ def ad_datetime(request, title):
 
     data_list = []
     for data in graph_data:
+        item = {
+            "impression_date": "{:%m/%d/%Y}".format(data.get('date_created'))}
+        item["count"] = data.get('created_count')
+        data_list.append(item)
+
+    jsonData = json.dumps(data_list)
+    return JsonResponse(jsonData, safe=False)
+
+
+def venue_datetime(request, venue_name):
+    venue_data = Impression.objects.filter(venue=venue_name).extra(
+        {
+            'date_created': "date(impression_date)"
+        }).values('date_created').annotate(
+            created_count=Count('impression_date')).order_by("date_created")
+
+    data_list = []
+    for data in venue_data:
+        item = {
+            "impression_date": "{:%m/%d/%Y}".format(data.get('date_created'))}
+        item["count"] = data.get('created_count')
+        data_list.append(item)
+
+    jsonData = json.dumps(data_list)
+    return JsonResponse(jsonData, safe=False)
+
+
+def click_datetime(request, venue_name):
+    click_data = Click.objects.filter(venue=venue_name).extra(
+        {
+            'date_created': "date(click_date)"
+        }).values('date_created').annotate(
+            created_count=Count('click_date')).order_by("date_created")
+
+    data_list = []
+    for data in click_data:
+        item = {
+            "impression_date": "{:%m/%d/%Y}".format(data.get('date_created'))}
+        item["count"] = data.get('created_count')
+        data_list.append(item)
+
+    jsonData = json.dumps(data_list)
+    return JsonResponse(jsonData, safe=False)
+
+
+def total_impressions_datetime(request):
+    impressions_data = Impression.objects.extra(
+        {
+            'date_created': "date(impression_date)"
+        }).values('date_created').annotate(
+            created_count=Count('impression_date')).order_by("date_created")
+
+    data_list = []
+    for data in impressions_data:
+        item = {
+            "impression_date": "{:%m/%d/%Y}".format(data.get('date_created'))}
+        item["count"] = data.get('created_count')
+        data_list.append(item)
+
+    jsonData = json.dumps(data_list)
+    return JsonResponse(jsonData, safe=False)
+
+
+def total_impressions_datetime(request):
+    impressions_data = Impression.objects.extra(
+        {
+            'date_created': "date(impression_date)"
+        }).values('date_created').annotate(
+            created_count=Count('impression_date')).order_by("date_created")
+
+    data_list = []
+    for data in impressions_data:
+        item = {
+            "impression_date": "{:%m/%d/%Y}".format(data.get('date_created'))}
+        item["count"] = data.get('created_count')
+        data_list.append(item)
+
+    jsonData = json.dumps(data_list)
+    return JsonResponse(jsonData, safe=False)
+
+
+def total_clicks_datetime(request):
+    clicks_data = Click.objects.extra(
+        {
+            'date_created': "date(click_date)"
+        }).values('date_created').annotate(
+            created_count=Count('click_date')).order_by("date_created")
+
+    data_list = []
+    for data in clicks_data:
         item = {
             "impression_date": "{:%m/%d/%Y}".format(data.get('date_created'))}
         item["count"] = data.get('created_count')

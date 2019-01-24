@@ -94,8 +94,9 @@ class AdAdmin(admin.ModelAdmin):
 
 
 class ClickAdmin(admin.ModelAdmin):
-    search_fields = ['ad__title', 'source_ip', 'session_id']
-    list_display = ['ad', 'click_date', 'source_ip', 'session_id']
+    search_fields = ['ad__title', 'source_ip', 'session_id', 'venue', 'url']
+    list_display = ['ad', 'click_date',
+                    'source_ip', 'session_id', 'venue', 'url']
     list_filter = ['ad', 'click_date']
     date_hierarchy = 'click_date'
     actions = ['download_clicks']

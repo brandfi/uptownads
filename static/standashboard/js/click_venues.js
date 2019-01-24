@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // Use the margin convention practice
-    var div_width = document.querySelector("#div-ads")
+    var div_width = document.querySelector("#venues-ads")
         .getBoundingClientRect().width;
 
     var margin = {
@@ -15,13 +15,13 @@ $(document).ready(function () {
     var x = d3.scaleBand().rangeRound([0, width]).padding(0.1);
     var y = d3.scaleLinear().rangeRound([height, 0]);
 
-    var svg = d3.select("#ads")
+    var svg = d3.select("#venues")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var url = "http://" + window.location.hostname + ':' + window.location.port + '/standashboard/total-events/api/';
+    var url = "http://" + window.location.hostname + ':' + window.location.port + '/standashboard/clicks-api';
 
     d3.json(url).then(function (data) {
         var jsonData = JSON.parse(data);
@@ -103,7 +103,7 @@ $(document).ready(function () {
             .style("font-size", "14px")
             .attr("font", "sans-serif")
             .attr("font-weight", "bold")
-            .text("Impressions per Event");
+            .text("Clicks per Venue");
 
     });
 });

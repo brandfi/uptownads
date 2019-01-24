@@ -30,6 +30,7 @@ class AdClickView(SingleObjectMixin, View):
                 defaults={
                     'click_date': timezone.now(),
                     'source_ip': get_client_ip(request),
+                    'venue': self.kwargs['venue'],
                 })
         return HttpResponseRedirect(ad.url)
 

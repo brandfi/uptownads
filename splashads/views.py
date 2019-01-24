@@ -85,7 +85,6 @@ def check_credentials(request):
 @csrf_exempt
 def signup(request):
     if request.method == 'POST':
-        name = request.POST['name']
         phone_number = request.POST['phone_number']
         client_mac = request.session['client_mac']
         generated_token = totp_verification.generate_token()
@@ -96,7 +95,7 @@ def signup(request):
         # Create a user
 
         user = {
-            "username": username,
+            "username": 'NULL',
             "macAddress": client_mac,
             "mobileNumber": phone_number,
             "name": name,

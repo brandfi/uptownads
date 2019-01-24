@@ -87,7 +87,6 @@ def check_credentials(request):
 def signup(request):
     if request.method == 'POST':
         name = request.POST['name']
-        email = request.POST['email']
         phone_number = request.POST['phone_number']
         client_mac = request.session['client_mac']
         generated_token = totp_verification.generate_token()

@@ -128,12 +128,9 @@ def signup(request):
 
     terms_url = 'http://' + request.get_host() + \
         reverse('splashads:terms')
-    signup_url = 'http://' + request.get_host() + \
-        reverse('splashads:signup')
 
     context = {
         'terms_url': terms_url,
-        'signup_url': signup_url,
     }
     return render(request, 'splashads/signup.html', context)
 
@@ -169,24 +166,14 @@ def verify(request):
         else:
             status = 'error'
 
-    verify_url = 'http://' + request.get_host() + \
-        reverse('splashads:verify')
     context = {
         'message': status,
-        'verify_url': verify_url,
     }
     return render(request, 'splashads/verify.html', context)
 
 
 def success(request):
-    success_url = 'http://' + request.get_host() + \
-        reverse('splashads:success')
-
-    context = {
-        'success_url': success_url,
-
-    }
-    return render(request, 'splashads/success.html', context)
+    return render(request, 'splashads/success.html')
 
 
 def terms(request):

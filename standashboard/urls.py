@@ -42,6 +42,4 @@ urlpatterns = [
          views.total_impressions_datetime, name='total-impressions-datetime'),
     path('total-clicks-datetime/api/',
          views.total_clicks_datetime, name='total-clicks-datetime'),
-    path('total-events/api/',
-         views.events_api, name='total-events'),
 ]

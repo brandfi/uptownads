@@ -90,7 +90,6 @@ def check_credentials(request):
 @csrf_exempt
 def signup(request):
     if request.method == 'POST':
-        name = request.POST['name']
         phone_number = request.POST['phone_number']
         client_mac = request.session['client_mac']
         generated_token = totp_verification.generate_token()
@@ -104,7 +103,7 @@ def signup(request):
             "username": username,
             "macAddress": client_mac,
             "mobileNumber": phone_number,
-            "name": name,
+            "name": "NULL",
             "email": "NULL",
             "ssid": ssid,
             "attribute": "Cleartext-Password",
@@ -135,12 +134,8 @@ def signup(request):
     terms_url = 'http://' + request.get_host() + \
         reverse('kahawa:terms')
 
-    signup_url = 'http://' + request.get_host() + \
-        reverse('kahawa:signup')
-
     context = {
         'terms_url': terms_url,
-        'signup_url': signup_url,
     }
     return render(request, 'kahawa/signup.html', context)
 
@@ -188,14 +183,7 @@ def verify(request):
 
 
 def success(request):
-    success_url = 'http://' + request.get_host() + \
-        reverse('kahawa:success')
-
-    context = {
-        'success_url': success_url,
-
-    }
-    return render(request, 'kahawa/success.html', context)
+    return render(request, 'kahawa/success.html')
 
 
 def terms(request):

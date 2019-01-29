@@ -86,7 +86,6 @@ def check_credentials(request):
 @csrf_exempt
 def signup(request):
     if request.method == 'POST':
-        name = request.POST['name']
         phone_number = request.POST['phone_number']
         client_mac = request.session['client_mac']
         generated_token = totp_verification.generate_token()
@@ -100,7 +99,7 @@ def signup(request):
             "username": username,
             "macAddress": client_mac,
             "mobileNumber": phone_number,
-            "name": name,
+            "name": "NULL",
             "email": "NULL",
             "ssid": ssid,
             "attribute": "Cleartext-Password",
@@ -130,12 +129,9 @@ def signup(request):
 
     terms_url = 'http://' + request.get_host() + \
         reverse('taylorgray:terms')
-    signup_url = 'http://' + request.get_host() + \
-        reverse('taylorgray:signup')
 
     context = {
         'terms_url': terms_url,
-        'signup_url': signup_url,
     }
     return render(request, 'taylorgray/signup.html', context)
 
@@ -170,24 +166,14 @@ def verify(request):
                 status = 'error'
         else:
             status = 'error'
-    verify_url = 'http://' + request.get_host() + \
-        reverse('taylorgray:verify')
     context = {
         'message': status,
-        'verify_url': verify_url,
     }
     return render(request, 'taylorgray/verify.html', context)
 
 
 def success(request):
-    success_url = 'http://' + request.get_host() + \
-        reverse('taylorgray:success')
-
-    context = {
-        'success_url': success_url,
-
-    }
-    return render(request, 'taylorgray/success.html', context)
+    return render(request, 'taylorgray/success.html')
 
 
 def terms(request):

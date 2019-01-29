@@ -321,24 +321,3 @@ def users_api(request):
                       or user['ssid'] == 'taylorgraysms']
     u = Counter(user['ssid'] for user in filtered_users)
     return JsonResponse(u, safe=False)
-
-
-def events_api(request):
-    json_string = '''{
-            "title": "Saape",
-            "count": 968
-        },
-        {
-            "title": "Uptown",
-            "count": 689
-        },
-        {
-            "title": "Kahawa",
-            "Freq": 329
-        },
-        {
-            "Letter": "Taylor",
-            "Freq": 404
-        }|'''
-    event_json = json.dumps(json_string)
-    return JsonResponse(json_string, safe=False)

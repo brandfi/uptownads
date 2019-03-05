@@ -40,7 +40,7 @@ def index(request):
         reverse('brewbistro:check-credentials')
 
     # Retrieve random ad for the zone based on weight
-    ad = Ad.objects.random_ad('header', 'Uptown')
+    ad = Ad.objects.random_ad('header', 'Brewbistro')
 
     if ad is not None:
         if request.session.session_key:

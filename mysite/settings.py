@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'ads.apps.AdsConfig',
     'splashads.apps.SplashadsConfig',
     'saape.apps.SaapeConfig',
+    'saapetrm.apps.SaapetrmConfig',
     'brewbistro.apps.BrewbistroConfig',
     'taylorgray.apps.TaylorgrayConfig',
     'kahawa.apps.KahawaConfig',
@@ -92,9 +93,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ads',
-        'USER': 'fatjoe',
-        'PASSWORD': 'Darthvader_89',
-        'HOST': 'localhost',
+        'USER': 'pnganga',
+        'PASSWORD': 'Darell05',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }

@@ -172,7 +172,7 @@ def verify(request):
     context = {
         'message': status,
         'uname': request.session['uname'],
-        'login_url': request.session['login_url'],
+        'l_url': request.session['login_url'],
         'g_token': request.session['g_token'],
         'dst': 'http://' + request.get_host() + \
                     reverse('saapetrm:success')

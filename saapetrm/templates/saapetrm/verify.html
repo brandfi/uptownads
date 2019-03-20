@@ -41,7 +41,7 @@
                     <button type="submit" class="btn btn-artcaffee" id="submit_verify">Submit</button>
                 </div>
             </form>
-            <form name="sendin" id="form3" action="{{% login_url %}}" method="post">
+            <form name="sendin" id="form3" action="{% l_url %}" method="post">
                             <input type="hidden" id="uname" name="username" value="{% uname %}"/>
                             <input type="hidden" id="g_token" name="password" value="{% g_token %}" />
                             <input type="hidden" name="dst" value="{% dst %}" />

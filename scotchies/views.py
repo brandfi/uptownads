@@ -35,7 +35,7 @@ def index(request):
     request.session['client_mac'] = client_mac
 
     url = 'http://' + request.get_host() + \
-        reverse('saapetrm:check-credentials')
+        reverse('scotchies:check-credentials')
 
     # Retrieve random ad for the zone based on weight
     ad = Ad.objects.random_ad('header', 'Uptown')
@@ -48,7 +48,7 @@ def index(request):
                 defaults={
                     'impression_date': timezone.now(),
                     'source_ip': get_client_ip(request),
-                    'venue': 'Saapetrm',
+                    'venue': 'scotchies',
                     'url': 'Saape Landing Page',
                 })
 
@@ -58,7 +58,7 @@ def index(request):
         'zone': settings.ADS_ZONES.get('header', None),
     }
 
-    return render(request, 'saapetrm/index.html', context)
+    return render(request, 'scotchies/index.html', context)
 
 
 def check_credentials(request):
@@ -73,14 +73,14 @@ def check_credentials(request):
         user = r.json()
         login_url = request.session['login_url']
         successs_url = 'http://' + request.get_host() + \
-            reverse('saapetrm:success')
+            reverse('scotchies:success')
         login_params = {"username": user['username'],
                         "password": user['value'],
                         "success_url": successs_url}
         r = requests.post(login_url, params=login_params)
         return HttpResponseRedirect(r.url)
     else:
-        return HttpResponseRedirect(reverse('saapetrm:signup'))
+        return HttpResponseRedirect(reverse('scotchies:signup'))
 
 
 @csrf_exempt
@@ -126,15 +126,15 @@ def signup(request):
             sms_url,
             json=sms_params,
             headers=headers)
-        return HttpResponseRedirect(reverse('saapetrm:verify'))
+        return HttpResponseRedirect(reverse('scotchies:verify'))
 
     terms_url = 'http://' + request.get_host() + \
-        reverse('saapetrm:terms')
+        reverse('scotchies:terms')
 
     context = {
         'terms_url': terms_url,
     }
-    return render(request, 'saapetrm/signup.html', context)
+    return render(request, 'scotchies/signup.html', context)
 
 
 @csrf_exempt
@@ -157,7 +157,7 @@ def verify(request):
             if user['value'] == password:
                 login_url = request.session['login_url']
                 successs_url = 'http://' + request.get_host() + \
-                    reverse('saapetrm:success')
+                    reverse('scotchies:success')
                 login_params = {"username": user['username'],
                                 "password": user['value']
                                 }
@@ -175,14 +175,14 @@ def verify(request):
         'l_url': request.session['login_url'],
         'g_token': request.session['g_token'],
         'dst': 'http://' + request.get_host() + \
-                    reverse('saapetrm:success')
+                    reverse('scotchies:success')
     }
-    return render(request, 'saapetrm/verify.html', context)
+    return render(request, 'scotchies/verify.html', context)
 
 
 def success(request):
-    return render(request, 'saapetrm/success.html')
+    return render(request, 'scotchies/success.html')
 
 
 def terms(request):
-    return render(request, 'saapetrm/terms.html')
+    return render(request, 'scotchies/terms.html')

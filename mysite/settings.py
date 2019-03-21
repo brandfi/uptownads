@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'ads.apps.AdsConfig',
     'splashads.apps.SplashadsConfig',
     'saape.apps.SaapeConfig',
-    'saapetrm.apps.SaapetrmConfig',
+    'scotchies.apps.ScotchiesConfig',
     'brewbistro.apps.BrewbistroConfig',
     'taylorgray.apps.TaylorgrayConfig',
     'kahawa.apps.KahawaConfig',
@@ -100,7 +100,7 @@ DATABASES = {
     }
 }
 
-
+# Darthvader_89
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 

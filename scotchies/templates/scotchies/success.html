@@ -1,28 +1,35 @@
-{% extends "saapetrm/base.html" %}
+{% extends "scotchies/base.html" %}
 {% load static %}
 {% load ads_tags %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'saapetrm/css/index.css' %}" />
+
 {% endblock %}
 
 {% block scripts %}
 
 {% endblock %}
 
-{% block title %}Saapetrm{% endblock %}
+{% block title %}scotchies Success{% endblock %}
 
 {% block content %}
 <div class="row">
     <div class="col-sm-4"></div>
-    {% for image in ad.images.all %}
-    <div class="col-sm-4" id="page-container" style="background-image: url('{{ image.image.url }}');">
-        <div class="row justify-content-center" style="margin-top: 20px;">
-            <img class="img-responsive" src="{% static 'saapetrm/images/saape_logo.jpeg' %}" alt="logo" style="height: 100px; border-radius: 12px;">
+    <div id="index_div" class="col-sm-4">
+        <div class="row justify-content-center" style="margin-top: 20px; margin-bottom: 20px;">
+            <img class="img-responsive" src="{% static 'scotchies/images/scotchies.jpg' %}" alt="logo" style="height: 100px;">
         </div>
-        <div class="row" style="min-height: 480px;"></div>
-        <div class="row justify-content-center" style="padding-bottom: 20px;">
-            <a href="{{ url }}" class="btn btn-artcaffee">CONTINUE</a>
+        <div class="row justify-content-center">
+            {% render_ads_zone 'sidebar' 'Scotchies' 'Scotchies' 'Success' %}
+        </div>
+        <div class="row justify-content-center" style="margin-top: 15px;">
+            {% render_ads_zone 'content' 'Scotchies' 'Scotchies' 'Success' %}
+        </div>
+        <div class="row justify-content-center" style="margin-top: 15px;">
+            {% render_ads_zone 'sidebar' 'Scotchies' 'Scotchies' 'Success' %}
+        </div>
+        <div class="row justify-content-center" style="margin-top: 10px;">
+            <a href="https://www.google.com" class="btn btn-artcaffee">BROWSE</a>
         </div>
         <div id="probtn_content1" class="row justify-content-center">
             <div id="probtn_additional_params" style="display: none; width: 0px; height: 0px;" style="display: none;">{"domain":"stan-network.app",
@@ -36,8 +43,6 @@
         </div>
         <script type="text/javascript" charset="utf-8" src="https://cdn.probtn.com/probtn_double_loader_with_params_concat.js"></script>
     </div>
-    {% endfor %}
     <div class="col-sm-4"></div>
 </div>
-
 {% endblock %}

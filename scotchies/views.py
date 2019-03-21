@@ -63,7 +63,7 @@ def index(request):
 
 def check_credentials(request):
     client_mac = request.session['client_mac']
-    ssid = 'saapesms'
+    ssid = 'scotchiessms'
     headers = {'Content-type': 'application/json'}
     r = requests.get(
         'http://radiusapi.brandfi.co.ke/radiusapi/user-detail/' +
@@ -76,9 +76,10 @@ def check_credentials(request):
             reverse('scotchies:success')
         login_params = {"username": user['username'],
                         "password": user['value'],
-                        "success_url": successs_url}
+                        "dst": request.session['continue_url'],
+                        "popup": True}
         r = requests.post(login_url, params=login_params)
-        return HttpResponseRedirect(r.url)
+        return HttpResponseRedirect(successs_url)
     else:
         return HttpResponseRedirect(reverse('scotchies:signup'))
 
@@ -90,7 +91,7 @@ def signup(request):
         client_mac = request.session['client_mac']
         generated_token = totp_verification.generate_token()
 
-        ssid = 'saapesms'
+        ssid = 'scotchiessms'
         username = phone_number + client_mac + ssid
         request.session['uname'] = username
         request.session['g_token'] = generated_token
@@ -145,7 +146,7 @@ def verify(request):
         headers = {'Content-type': 'application/json'}
 
         client_mac = request.session['client_mac']
-        ssid = 'saapesms'
+        ssid = 'scotchiessms'
         headers = {'Content-type': 'application/json'}
         r = requests.get(
             'http://radiusapi.brandfi.co.ke/radiusapi/user-detail/' +
@@ -159,23 +160,25 @@ def verify(request):
                 successs_url = 'http://' + request.get_host() + \
                     reverse('scotchies:success')
                 login_params = {"username": user['username'],
-                                "password": user['value']
+                                "password": user['value'],
+                                "dst": request.session['continue_url'],
+                                "popup": True
                                 }
-                # r = requests.post(login_url, params=login_params)
-                # return HttpResponseRedirect(r.url)
-                return JsonResponse(login_params) 
+                r = requests.post(login_url, params=login_params)
+                return HttpResponseRedirect(successs_url)
+                # return JsonResponse(login_params) 
             else:
                 status = 'error'
         else:
             status = 'error'
           
     context = {
-        'message': status,
-        'uname': request.session['uname'],
-        'l_url': request.session['login_url'],
-        'g_token': request.session['g_token'],
-        'dst': 'http://' + request.get_host() + \
-                    reverse('scotchies:success')
+        'message': status
+        # 'uname': request.session['uname'],
+        # 'l_url': request.session['login_url'],
+        # 'g_token': request.session['g_token'],
+        # 'dst': 'http://' + request.get_host() + \
+        #             reverse('scotchies:success')
     }
     return render(request, 'scotchies/verify.html', context)
 

@@ -27,13 +27,14 @@
             </form>
         </div>
        
-        <script type="text/javascript" charset="utf-8" src="https://cdn.probtn.com/probtn_double_loader_with_params_concat.js"></script>
+        
     </div>
     <div class="col-sm-4"></div>
 </div>
+{% if username %}
 <script type="text/javascript">
-$(document).ready(function(){
   $("#form3").submit();
-});
 </script>
+{% endif %}
+
 {% endblock %}

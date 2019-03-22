@@ -74,12 +74,13 @@ def check_credentials(request):
         login_url = request.session['login_url']
         successs_url = 'http://' + request.get_host() + \
             reverse('scotchies:success')
-        login_params = {"username": user['username'],
+        context = {"username": user['username'],
                         "password": user['value'],
                         "dst": request.session['continue_url'],
                         "popup": True}
-        r = requests.post(login_url, params=login_params)
-        return HttpResponseRedirect(successs_url)
+        return render(request, 'scotchies/submit.html', context)
+        # r = requests.post(login_url, params=login_params)
+        # return HttpResponseRedirect(successs_url)
     else:
         return HttpResponseRedirect(reverse('scotchies:signup'))
 
@@ -159,13 +160,11 @@ def verify(request):
                 login_url = request.session['login_url']
                 successs_url = 'http://' + request.get_host() + \
                     reverse('scotchies:success')
-                login_params = {"username": user['username'],
-                                "password": user['value'],
-                                "dst": request.session['continue_url'],
-                                "popup": True
-                                }
-                r = requests.post(login_url, params=login_params)
-                return HttpResponseRedirect(successs_url)
+                context = {"username": user['username'],
+                        "password": user['value'],
+                        "dst": request.session['continue_url'],
+                        "popup": True}
+                return render(request, 'scotchies/submit.html', context)
                 # return JsonResponse(login_params) 
             else:
                 status = 'error'

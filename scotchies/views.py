@@ -76,6 +76,7 @@ def check_credentials(request):
             reverse('scotchies:success')
         context = {"username": user['username'],
                         "password": user['value'],
+                        "l_url": login_url,
                         "dst": request.session['continue_url'],
                         "popup": True}
         return render(request, 'scotchies/submit.html', context)

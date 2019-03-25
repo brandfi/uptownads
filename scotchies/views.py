@@ -77,7 +77,7 @@ def check_credentials(request):
         context = {"username": user['username'],
                         "password": user['value'],
                         "l_url": login_url,
-                        "dst": successs_url,
+                        "dst": request.session['continue_url'],
                         "popup": True}
         return render(request, 'scotchies/submit.html', context)
         # r = requests.post(login_url, params=login_params)
@@ -164,7 +164,7 @@ def verify(request):
                 context = {"username": user['username'],
                         "password": user['value'],
                         "l_url": login_url,
-                        "dst": successs_url,
+                        "dst": request.session['continue_url'],
                         "popup": True}
                 return render(request, 'scotchies/submit.html', context)
                 # return JsonResponse(login_params) 

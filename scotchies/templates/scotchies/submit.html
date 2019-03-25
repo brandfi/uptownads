@@ -21,7 +21,6 @@
         </div>
             <form name="sendin" id="form3" action="{{ l_url }}" method="post">
                             <input type="hidden" id="uname" name="username" value="{{ username }}"/>
-                            <input type="hidden" id="l_url" name="l_url" value="{{ l_url }}"/>
                             <input type="hidden" id="g_token" name="password" value="{{ password }}" />
                             <input type="hidden" name="dst" value="{{ dst }}" />
                             <input type="hidden" name="popup" value="true" />
@@ -37,7 +36,7 @@
   var uname = $('#uname').val();
   var g_token = $('#g_token').val();
   var l_url = $('#l_url').val();
-  $('#form3').submit();
+  // $('#form3').submit();
 </script>
 {% endif %}
 

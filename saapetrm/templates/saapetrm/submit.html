@@ -1,0 +1,39 @@
+{% extends "saapetrm/base.html" %}
+{% load static %}
+{% load ads_tags %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'saapetrm/css/verify.css' %}" />
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
+
+{% block title %}saapetrm Submit{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+        <div class="row justify-content-center" style="margin-top: 20px; margin-bottom: 20px;">
+            <img class="img-responsive" src="{% static 'saapetrm/images/saape_logo.jpeg' %}" alt="logo" style="height: 100px; border-radius: 12px;">
+        </div>
+            <form name="sendin" id="form3" action="{{ l_url }}" method="post">
+                            <input type="hidden" id="uname" name="username" value="{{ username }}"/>
+                            <input type="hidden" id="g_token" name="password" value="{{ password }}" />
+                            <input type="hidden" name="dst" value="{{ dst }}" />
+                            <input type="hidden" name="popup" value="true" />
+            </form>
+        </div>
+       
+        
+    </div>
+    <div class="col-sm-4"></div>
+</div>
+{% if username %}
+<script type="text/javascript">
+  $('#form3').submit();
+</script>
+{% endif %}
+{% endblock %}

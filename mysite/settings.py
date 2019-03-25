@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'ads.apps.AdsConfig',
     'splashads.apps.SplashadsConfig',
     'saape.apps.SaapeConfig',
+    'saapetrm.apps.SaapetrmConfig',
     'scotchies.apps.ScotchiesConfig',
     'brewbistro.apps.BrewbistroConfig',
     'taylorgray.apps.TaylorgrayConfig',

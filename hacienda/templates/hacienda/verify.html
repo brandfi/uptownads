@@ -1,0 +1,85 @@
+{% extends "hacienda/base.html" %}
+{% load static %}
+{% load ads_tags %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'hacienda/css/verify.css' %}" />
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
+
+{% block title %}hacienda Verify{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+        <div class="row justify-content-center" style="margin-top: 20px; margin-bottom: 20px;">
+            <img class="img-responsive" src="{% static 'hacienda/images/hacienda.png' %}" alt="logo" style="height: 100px; border-radius: 12px;">
+        </div>
+        <div class="row justify-content-center" style="margin-bottom: 20px;">
+            {% render_ads_zone 'sidebar' 'Hacienda' 'Hacienda' 'Verify' %}
+        </div>
+        <div class="row justify-content-center">
+            {% if message == 'error' %}
+            <div class="row justify-content-center">
+                <div class="alert alert-danger">
+                    <strong>You entered an incorrect code</strong>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        <div class="row justify-content-center">
+            <form id="verify_form" action="{% url 'hacienda:verify' %}" method="post">
+                <div class="form-group">
+                    <input type="password" class="form-control border-top-0 border-right-0 border-left-0" id="password"
+                        name="password" placeholder="Enter code" required>
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-artcaffee" id="submit_verify">Submit</button>
+                </div>
+            </form>
+            <!-- <form name="sendin" id="form3" action="{{ l_url }}" method="post">
+                            <input type="hidden" id="uname" name="username" value="{{ uname }}"/>
+                            <input type="hidden" id="g_token" name="password" value="{{ g_token }}" />
+                            <input type="hidden" name="dst" value="{{ dst }}" />
+                            <input type="hidden" name="popup" value="true" />
+            </form> -->
+        </div>
+        <div id="probtn_content1" class="row justify-content-center">
+            <div id="probtn_additional_params" style="display: none; width: 0px; height: 0px;" style="display: none;">{"domain":"stan-network.app",
+                "SelectAdSet":"5c123caf1102fc0100000002", "HideInFrame":"false", "HideInFrame":"false"}</div>
+            <div id="probtn_additional_params_banner_safeframe" style="display: none; width: 0px; height: 0px;" style="display: none;">{"domain":"stan-network.app",
+                "SelectAdSet":"5c123caf1102fc0100000002", "HideInFrame":"false", "HideInFrame":"false"}</div>
+            <div id="probtn_additional_params_banner_iframe" style="display: none; width: 0px; height: 0px;" style="display: none;">{"domain":"stan-network.app",
+                "SelectAdSet":"5c123caf1102fc0100000002", "HideInFrame":"false", "HideInFrame":"false"}</div>
+            <div id="probtn_dsp_params" style="display: none; width: 0px; height: 0px;" style="display: none;">
+                {"publishers":"skan_network_publishers","campaign_id":"5c123caf1102fc0100000002"} </div>
+        </div>
+        <script type="text/javascript" charset="utf-8" src="https://cdn.probtn.com/probtn_double_loader_with_params_concat.js"></script>
+    </div>
+    <div class="col-sm-4"></div>
+</div>
+<!-- <script type="text/javascript">
+     $('#submit_verify').click(function(e) {
+        e.preventDefault();
+        var url = '{% url 'hacienda:verify' %}'
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: { 'password': $('#password').val()
+             },
+            success: function(data) {
+                var uname = $('#uname').val();
+                var g_token = $('#g_token').val();
+                if (data["username"] == uname && data["password"] == g_token ) {
+                    
+                    $('#form3').submit();
+                }
+            }
+        })
+    })
+</script> -->
+{% endblock %}
